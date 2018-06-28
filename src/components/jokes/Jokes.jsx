@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as jokesActions from '../../redux/actions/jokesActions';
 import { bindActionCreators } from 'redux';
+import { Card } from 'semantic-ui-react';
 
 class Jokes extends React.Component{
   componentDidMount(){
@@ -10,13 +11,16 @@ class Jokes extends React.Component{
   }
 
   renderJoke = joke => {
+    const category = this.props.match.params.category
     if (joke){
       return(
         <div key={joke.id}>
-          <h1>
-            {joke.value}
-            <img src={joke.icon_url} alt="chuck"/>
-          </h1>
+          <Card fluid color='purple'>
+          <Card.Content>
+            <Card.Header content={category} style={{margin : '0 auto'}}/>
+            <Card.Description content={joke.value} />
+          </Card.Content>
+          </Card>
         </div>
       )
     } else {
@@ -47,7 +51,6 @@ class Jokes extends React.Component{
     console.log(joke)
     return(
       <div>
-        Joke
         {
           this.renderJoke(joke)
         }

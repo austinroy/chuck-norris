@@ -14,7 +14,7 @@ class Categories extends React.Component{
     const categoryUrl = `/${category}`
     return(
       <div>
-        <Card key={index} href={categoryUrl}>
+        <Card key={index} href={categoryUrl} color='red' >
           <Card.Content>
             <Icon name={category} /> 
             <Card.Header content={category} />
