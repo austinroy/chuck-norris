@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as categoryActions from '../../redux/actions/categoryActions';
 import { bindActionCreators } from 'redux';
+import { Card, Icon } from 'semantic-ui-react';
+import './categories.css'
 
 class Categories extends React.Component{
   componentDidMount(){
@@ -11,10 +13,13 @@ class Categories extends React.Component{
   renderCard = (category, index) => {
     const categoryUrl = `/${category}`
     return(
-      <div key={index}>
-        <h1>
-          <a href={categoryUrl}>{category}</a>
-        </h1>
+      <div>
+        <Card key={index} href={categoryUrl}>
+          <Card.Content>
+            <Icon name={category} /> 
+            <Card.Header content={category} />
+          </Card.Content>
+        </Card>
       </div>
     )
   }
@@ -37,10 +42,12 @@ class Categories extends React.Component{
     const { categories } = this.props;
     return(
       <div>
-        Categories
-        {
-          this.mapCategories(categories)
-        }
+        <h1>Categories</h1>
+        <div className='categories'>
+          {
+            this.mapCategories(categories)
+          }
+        </div>
       </div>
     )
   }
