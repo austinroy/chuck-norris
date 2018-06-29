@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as categoryActions from '../../redux/actions/categoryActions';
 import { bindActionCreators } from 'redux';
-import { Card, Icon } from 'semantic-ui-react';
-import './categories.css'
+import { Card, Loader } from 'semantic-ui-react';
+import './categories.css';
 
 class Categories extends React.Component{
+
   componentDidMount(){
     this.props.fetchCategories();
   }
@@ -13,10 +14,9 @@ class Categories extends React.Component{
   renderCard = (category, index) => {
     const categoryUrl = `/${category}`
     return(
-      <div>
-        <Card key={index} href={categoryUrl} color='red' >
+      <div key={index}>
+        <Card href={categoryUrl} color='purple' >
           <Card.Content>
-            <Icon name={category} /> 
             <Card.Header content={category} />
           </Card.Content>
         </Card>
@@ -27,7 +27,7 @@ class Categories extends React.Component{
   mapCategories = categories => {
     if (categories.length > 0){
       return categories.map((category, index) => {
-        return this.renderCard(category, index)
+        return this.renderCard(category, index);
       })
     } else {
       return (
@@ -38,14 +38,16 @@ class Categories extends React.Component{
     }
   }
 
+  renderLoader = () => <Loader active={this.props.loading} inline />
+
   render(){
-    const { categories } = this.props;
+    const { categories, loading } = this.props;
     return(
       <div>
         <h1>Categories</h1>
         <div className='categories'>
-          {
-            this.mapCategories(categories)
+          { 
+            (loading ? this.renderLoader() : this.mapCategories(categories) )
           }
         </div>
       </div>
@@ -53,9 +55,15 @@ class Categories extends React.Component{
   }
 }
 
+Categories.defaultProps ={
+  loading : true,
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
-    categories : state.categories
+    categories : state.categories.data,
+    loading : state.categories.loading,
+    error : state.categories.error,
   }
 }
 

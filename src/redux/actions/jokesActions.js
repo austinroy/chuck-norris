@@ -12,13 +12,24 @@ export const fetchJokes = category => dispatch => (
         dispatch(fetchJokesSuccess(categories))
     })
     .catch(err => {
-        console.log(err)
+        dispatch(fetchJokesSuccess(err))
     })
 )
 
-export const fetchJokesSuccess = (jokes) => {
+export const fetchJokesSuccess = (joke) => {
     return {
         type : 'FETCH_JOKES_SUCCESS',
-        jokes
+        joke,
+        loading : false,
+        error : false,
+    }
+}
+
+export const fetchJokesFailure = (err) => {
+    return {
+        type : 'FETCH_JOKES_FAILURE',
+        loading : false,
+        error : true,
+        err
     }
 }

@@ -9,16 +9,28 @@ export const fetchCategories = () => dispatch => (
         }
     })
     .then(categories => {
-        dispatch(fetchCategoriesSuccess(categories))
+        return dispatch(fetchCategoriesSuccess(categories))
     })
     .catch(err => {
         console.log(err)
+        return dispatch(fetchCategoriesFailure(err))
     })
 )
 
 export const fetchCategoriesSuccess = (categories) => {
     return {
         type : 'FETCH_CATEGORIES_SUCCESS',
-        categories
+        categories,
+        loading : false,
+        error : false,
+    }
+}
+
+export const fetchCategoriesFailure = (err) => {
+    return {
+        type : 'FETCH_CATEGORIES_FAILURE',
+        loading : false,
+        error : true,
+        err
     }
 }

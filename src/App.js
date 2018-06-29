@@ -5,7 +5,7 @@ import { Menu, Image } from 'semantic-ui-react';
 class App extends Component {
   render() {
     return (
-      <div className='app grid-container' style={{ display : 'grid'}}>
+      <div className='app grid-container' style={{ display : 'grid', width : '100%' }}>
         <div style={{ gridArea : 'menu'}}> 
         <Menu vertical secondary color='blue' >
           <Menu.Item >
